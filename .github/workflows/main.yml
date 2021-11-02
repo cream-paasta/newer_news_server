@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: citizen-of-planet-earth/cf-cli-action@master
         with:
           cf_api: https://api.paas-ta.org
           cf_username: ${{ secrets.CF_USER }}
