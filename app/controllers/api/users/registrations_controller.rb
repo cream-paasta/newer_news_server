@@ -6,6 +6,9 @@ class Api::Users::RegistrationsController < Devise::RegistrationsController
   #
   skip_forgery_protection
 
+  respond_to :json
+
+
   # GET /resource/sign_up
   # def new
   #   super

@@ -3,6 +3,11 @@
 class Api::Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
+  skip_forgery_protection
+
+  respond_to :json
+
+
   # GET /resource/sign_in
   # def new
   #   super
