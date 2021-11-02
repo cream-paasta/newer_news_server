@@ -1,0 +1,12 @@
+- name: CF CLI Action
+  # You may pin to the exact commit or the version.
+  # uses: citizen-of-planet-earth/cf-cli-action@3c7cc1a77152f9157b0c33b32d3b2b5fbdc56dca
+  uses: citizen-of-planet-earth/cf-cli-action@v2
+  with:
+    # Target API Endpoint of Cloud Foundry
+    cf_api: https://api.paas-ta.org
+    # Username for API authentication
+    cf_username: nonuknuk@gmail.com
+    # Password for API authentication
+    cf_password: nonuknuk2021!@#
+    command: cf push -b https://github.com/cloudfoundry/ruby-buildpack.git
