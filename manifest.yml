@@ -1,0 +1,10 @@
+---
+applications:
+  - name: newr_news_server
+    # 애플리케이션 이름
+    memory: 512M        # 애플리케이션 메모리 사이즈
+    instances: 1           # 애플리케이션 인스턴스 개수
+    path: .
+    command:
+      - yarn install --check-files
+      - bundle exec rails server -p $PORT
