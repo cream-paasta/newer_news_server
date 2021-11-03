@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'home#index'
   scope :api do
     devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', registration: 'signup' },
                controllers: { sessions: 'api/users/sessions', registrations: 'api/users/registrations' }
