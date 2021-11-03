@@ -30,4 +30,4 @@ jobs:
           cf_password: ${{ secrets.CF_PASSWORD }}
           cf_org: nonuknuk
           cf_space: dev
-          command: push -b https://github.com/cloudfoundry/ruby-buildpack.git
+          command: push -b https://github.com/cloudfoundry/ruby-buildpack.git -f manifest.yml
