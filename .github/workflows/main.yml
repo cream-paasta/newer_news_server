@@ -12,22 +12,22 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  deploy:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: citizen-of-planet-earth/cf-cli-action@master
+      - name: Login to cloudfoundry
+        uses: comsysto/cloudfoundry-action/auth@v1.0
         with:
-          cf_api: https://api.paas-ta.org
-          cf_username: ${{ secrets.CF_USER }}
-          cf_password: ${{ secrets.CF_PASSWORD }}
-          cf_org: nonuknuk
-          cf_space: dev
-          command: push -b https://github.com/cloudfoundry/ruby-buildpack.git
+          api: 'https://api.paas-ta.org'
+          user: ${{ secrets.CF_USER }}
+          password: ${{ secrets.CF_PASSWORD }}
+      - name: Switch to cf org and space
+        uses: comsysto/cloudfoundry-action/cli@v1.0
+        with:
+          args: target -o 'nonuknuk' -s 'dev'
+      - name: cf push
+        uses: comsysto/cloudfoundry-action/cli@v1.0
+        with:
+          args: push -b https://github.com/cloudfoundry/ruby-buildpack.git
