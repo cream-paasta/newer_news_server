@@ -10,16 +10,21 @@ on:
   pull_request:
     branches: [ master ]
 
-
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: elliottpope/cloudfoundry-cli-action@v7
-          with:
-            CF_API: https://api.paas-ta.org
-            # Username for API authentication
-            USERNAME: ${{ secrets.CF_USER }}
-            # Password for API authentication
-            PASSWORD: ${{ secrets.CF_PASSWORD }}
-            COMMAND: cf push -b https://github.com/cloudfoundry/ruby-buildpack.git
+  build:
+    runs-on: ubuntu-18.04
+    # Build your app here
+
+  deploy:
+    runs-on: ubuntu-18.04
+    needs: build
+    
+    steps:
+    - uses: citizen-of-planet-earth/cf-cli-action@master
+      with:
+        cf_api: https://api.paas-ta.org
+        cf_username: ${{ secrets.CF_USER }}
+        cf_password: ${{ secrets.CF_PASSWORD }}
+        cf_org: AwesomeApp
+        cf_space: Development
+        command: push -b https://github.com/cloudfoundry/ruby-buildpack.git
