@@ -14,14 +14,20 @@ on:
   workflow_dispatch:
   
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: elliottpope/cloudfoundry-cli-action@v7
-          with:
-            CF_API: https://api.my-cloud-foundry.com
-            USERNAME: ${{ secrets.CF_USER }}
-            PASSWORD: ${{ secrets.CF_PASSWORD }}
-            ORG: nonuknuk
-            SPACE: dev
-            COMMAND: push newer_news_server -b https://github.com/cloudfoundry/ruby-buildpack.git\#v1.8.48
+  build:
+    runs-on: ubuntu-18.04
+    # Build your app here
+
+  deploy:
+    runs-on: ubuntu-18.04
+    needs: build
+    
+    steps:
+    - uses: citizen-of-planet-earth/cf-cli-action@master
+      with:
+        cf_api: https://api.paas-ta.org
+        cf_username: ${{ secrets.CF_USER }}
+        cf_password: ${{ secrets.CF_PASSWORD }}
+        cf_org: nonuknuk
+        cf_space: dev
+        command: push -f manifest.yml
