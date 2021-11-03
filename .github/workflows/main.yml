@@ -10,21 +10,22 @@ on:
   pull_request:
     branches: [ master ]
 
-jobs:
-  build:
-    runs-on: ubuntu-18.04
-    # Build your app here
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
-  deploy:
-    runs-on: ubuntu-18.04
-    needs: build
-    
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: citizen-of-planet-earth/cf-cli-action@v2
-      with:
-        cf_api: https://api.paas-ta.org
-        cf_username: ${{ secrets.CF_USER }}
-        cf_password: ${{ secrets.CF_PASSWORD }}
-        cf_org: AwesomeApp
-        cf_space: Development
-        command: push -b https://github.com/cloudfoundry/ruby-buildpack.git
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: citizen-of-planet-earth/cf-cli-action@master
+        with:
+          cf_api: https://api.paas-ta.org
+          cf_username: ${{ secrets.CF_USER }}
+          cf_password: ${{ secrets.CF_PASSWORD }}
+          command: push -b https://github.com/cloudfoundry/ruby-buildpack.git
