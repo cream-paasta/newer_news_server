@@ -23,11 +23,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: citizen-of-planet-earth/cf-cli-action@master
+      - uses: elliottpope/cloudfoundry-cli-action@v7
         with:
-          cf_api: https://api.paas-ta.org
-          cf_username: ${{ secrets.CF_USER }}
-          cf_password: ${{ secrets.CF_PASSWORD }}
-          cf_org: nonuknuk
-          cf_space: dev
-          command: push -b https://github.com/cloudfoundry/ruby-buildpack.git
+          # Target API Endpoint of Cloud Foundry
+          CF_API: https://api.paas-ta.org
+          # Username for API authentication
+          USERNAME: ${{ secrets.CF_USER }}
+          # Password for API authentication
+          PASSWORD: ${{ secrets.CF_PASSWORD }}
+          COMMAND: cf push -b https://github.com/cloudfoundry/ruby-buildpack.git
