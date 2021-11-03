@@ -14,20 +14,14 @@ on:
   workflow_dispatch:
   
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Login to cloudfoundry
-        uses: comsysto/cloudfoundry-action/auth@v1.0
-        with:
-          api: 'https://api.paas-ta.org'
-          user: ${{ secrets.CF_USER }}
-          password: ${{ secrets.CF_PASSWORD }}
-      - name: Switch to cf org and space
-        uses: comsysto/cloudfoundry-action/cli@v1.0
-        with:
-          args: target -o 'nonuknuk' -s 'dev'
-      - name: cf push
-        uses: comsysto/cloudfoundry-action/cli@v1.0
-        with:
-          args: push newer_news_server -b https://github.com/cloudfoundry/ruby-buildpack.git -f ./manifest.yml
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: elliottpope/cloudfoundry-cli-action@v7
+          with:
+            CF_API: https://api.my-cloud-foundry.com
+            USERNAME: ${{ secrets.CF_USER }}
+            PASSWORD: ${{ secrets.CF_PASSWORD }}
+            ORG: nonuknuk
+            SPACE: dev
+            COMMAND: push newer_news_server
