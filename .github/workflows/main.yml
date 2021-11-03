@@ -20,7 +20,7 @@ jobs:
     needs: build
     
     steps:
-    - uses: citizen-of-planet-earth/cf-cli-action
+    - uses: citizen-of-planet-earth/cf-cli-action@v2
       with:
         cf_api: https://api.paas-ta.org
         cf_username: ${{ secrets.CF_USER }}
