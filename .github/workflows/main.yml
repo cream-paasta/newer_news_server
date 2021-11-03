@@ -15,7 +15,7 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
-        - uses: elliottpope/cloudfoundry-cli-action@v6
+        - uses: elliottpope/cloudfoundry-cli-action@v7
           with:
             CF_API: https://api.paas-ta.org
             # Username for API authentication
