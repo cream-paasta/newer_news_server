@@ -30,4 +30,4 @@ jobs:
       - name: cf push
         uses: comsysto/cloudfoundry-action/cli@v1.0
         with:
-          args: push -b https://github.com/cloudfoundry/ruby-buildpack.git
+          args: push newer_news_server -b https://github.com/cloudfoundry/ruby-buildpack.git
