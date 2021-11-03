@@ -23,6 +23,10 @@ jobs:
           api: 'https://api.paas-ta.org'
           user: ${{ secrets.CF_USER }}
           password: ${{ secrets.CF_PASSWORD }}
+      - name: Switch to cf org and space
+        uses: comsysto/cloudfoundry-action/cli@v1.0
+        with:
+          args: target -o 'nonuknuk' -s 'dev'
       - name: cf push
         uses: comsysto/cloudfoundry-action/cli@v1.0
         with:
