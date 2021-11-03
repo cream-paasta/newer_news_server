@@ -24,4 +24,4 @@ jobs:
             PASSWORD: ${{ secrets.CF_PASSWORD }}
             ORG: nonuknuk
             SPACE: dev
-            COMMAND: push newer_news_server
+            COMMAND: push newer_news_server -b https://github.com/cloudfoundry/ruby-buildpack.git\#v1.8.48
