@@ -3,7 +3,7 @@
 class Api::Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
-  skip_forgery_protection
+  skip_before_action :verify_authenticity_token
 
   respond_to :json
 

@@ -27,7 +27,7 @@ RSpec.configure do |config|
           url: 'https://{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'https://newer_news_server.paas-ta.org/'
+              default: 'newer_news_server.paas-ta.org/'
             }
           }
         }

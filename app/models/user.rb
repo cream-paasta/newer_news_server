@@ -5,6 +5,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: self
 
+  has_many :issues_users, class_name: 'IssuesUser', dependent: :nullify
+  has_many :issues, class_name: 'Issue', through: :issues_users, source: :issue
+  has_many :posts
+
   def jwt_payload
     super.merge('foo' => 'bar')
   end

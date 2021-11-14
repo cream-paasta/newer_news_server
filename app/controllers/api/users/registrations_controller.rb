@@ -4,10 +4,15 @@ class Api::Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   #
-  skip_forgery_protection
+  skip_before_action :verify_authenticity_token
 
   respond_to :json
 
+  private
+
+  def sign_up_params
+    params.require(:user).permit(:username, :email, :password)
+  end
 
   # GET /resource/sign_up
   # def new
