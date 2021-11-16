@@ -2,7 +2,7 @@ module Api
   class PostsController < ApplicationController
     before_action :post, only: [:destroy]
     def index
-      posts = Post.all
+      posts = Post.where(gu: params[:gu])
 
       render json: posts, adapter: :json, each_serializer: PostSerializer
     end
@@ -28,7 +28,7 @@ module Api
     private
 
     def post_params
-      params.require(:post).permit(:content)
+      params.require(:post).permit(:content, :gu)
     end
 
     def post

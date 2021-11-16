@@ -41,7 +41,7 @@ module Api
     end
 
     def action
-      if params[:flag].to_sym
+      if params[:flag].to_s == 'true'
         IssuesUser.create(issue: @issue, user: current_user, kind: params[:kind])
       else
         IssuesUser.where(issue: @issue, user:current_user, kind: params[:kind]).first.destroy
