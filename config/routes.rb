@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   root 'home#index'
   namespace :api do
     resources :posts
-    devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', registration: 'signup' },
-               controllers: { sessions: 'api/users/sessions', registrations: 'api/users/registrations' }
-
+    resources :issues
   end
+  devise_for :users, path: 'api', path_names: { sign_in: 'login', sign_out: 'logout', registration: 'signup' },
+             controllers: { sessions: 'api/users/sessions', registrations: 'api/users/registrations' }
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

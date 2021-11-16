@@ -4,7 +4,7 @@ module Api
     def index
       posts = Post.all
 
-      render json: posts, adapter: :json, each_serializer: CompanySerializer
+      render json: posts, adapter: :json, each_serializer: PostSerializer
     end
 
     def create
