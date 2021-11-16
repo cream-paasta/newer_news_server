@@ -1,5 +1,6 @@
 module Api
   class IssuesController < ApplicationController
+    before_action :issue, only: [:show]
 
     def index
       ids = []
@@ -30,6 +31,19 @@ module Api
       issues = Issue.where(id: ids)
 
       render json: issues, adapter: :json, each_serializer: IssueSerializer
+    end
+
+    def show
+      @issue.view_count = @issue.view_count + 1
+      @issue.save
+
+      render json: :ok, status: :ok
+    end
+
+    private
+
+    def issue
+      @issue = Issue.find params[:id]
     end
   end
 end

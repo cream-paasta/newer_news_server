@@ -4,13 +4,13 @@ GET http://localhost:3000/
 Accept: application/json
 
 ###
-POST http://localhost:3000/api/signup
+POST https://newer_news_server.paas-ta.org/api/signup
 Accept: application/json
 content-Type: application/json
 
 {
   "user": {
-    "email": "test1@gmail.com",
+    "email": "test2@gmail.com",
     "password": "test123",
     "username": "gill"
   }
@@ -23,7 +23,7 @@ content-Type: application/json
 
 {
 
-    "email": "test1@gmail.com",
+    "email": "test2@gmail.com",
     "password": "test123"
 
 }

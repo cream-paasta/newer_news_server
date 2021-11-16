@@ -19,7 +19,7 @@ module Api
 
     def destroy
       if @post.destroy
-        render status: :ok
+        render json: :ok, status: :ok
       else
         raise Exceptions::BadRequest, message: @post.errors.full_messages.first
       end
