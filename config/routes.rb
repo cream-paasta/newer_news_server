@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   root 'home#index'
   namespace :api do
     resources :posts
-    resources :issues
+    resources :issues do
+      member do
+        put :action
+      end
+    end
   end
   devise_for :users, path: 'api', path_names: { sign_in: 'login', sign_out: 'logout', registration: 'signup' },
              controllers: { sessions: 'api/users/sessions', registrations: 'api/users/registrations' }

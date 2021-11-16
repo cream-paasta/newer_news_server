@@ -1,6 +1,6 @@
 module Api
   class IssuesController < ApplicationController
-    before_action :issue, only: [:show]
+    before_action :issue, only: [:show, :action]
 
     def index
       ids = []
@@ -28,14 +28,24 @@ module Api
           ids.push(issue.id)
         end
       end
-      issues = Issue.where(id: ids)
+      issues = Issue.where(id: ids - IssuesUser.black_list.where(user: current_user).pluck(:issue_id))
 
-      render json: issues, adapter: :json, each_serializer: IssueSerializer
+      render json: issues, adapter: :json, each_serializer: IssueSerializer, current_user: current_user.id
     end
 
     def show
       @issue.view_count = @issue.view_count + 1
       @issue.save
+
+      render json: :ok, status: :ok
+    end
+
+    def action
+      if params[:flag].to_sym
+        IssuesUser.create(issue: @issue, user: current_user, kind: params[:kind])
+      else
+        IssuesUser.where(issue: @issue, user:current_user, kind: params[:kind]).first.destroy
+      end
 
       render json: :ok, status: :ok
     end
