@@ -24,7 +24,7 @@ module Api
           ids.push(issues.first.id)
           next
         else
-          issue = Issue.create(title: r['title'], original_link: r['originallink'], link: r['link'], description: r['description'])
+          issue = Issue.create(title: r['title'], original_link: r['originallink'], link: r['link'], description: r['description'], pubed_at: r['pubDate'])
           ids.push(issue.id)
         end
       end
