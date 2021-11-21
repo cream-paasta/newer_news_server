@@ -5,6 +5,10 @@ class IssueSerializer < ActiveModel::Serializer
     object.issues_users.scrap.where(user_id: @instance_options[:current_user]).present?
   end
 
+  attribute :is_black_list do
+    object.issues_users.black_list.where(user_id: @instance_options[:current_user]).present?
+  end
+
   attribute :scrap_count do
     object.issues_users.scrap.count
   end

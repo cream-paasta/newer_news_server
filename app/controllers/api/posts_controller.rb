@@ -25,6 +25,12 @@ module Api
       end
     end
 
+    def user
+      posts = current_user.posts
+
+      render json: posts, adapter: :json, each_serializer: PostSerializer
+    end
+
     private
 
     def post_params

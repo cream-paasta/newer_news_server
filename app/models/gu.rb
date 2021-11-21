@@ -1,0 +1,2 @@
+class Gu < ApplicationRecord
+end

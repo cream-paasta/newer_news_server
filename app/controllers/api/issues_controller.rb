@@ -7,6 +7,10 @@ module Api
       query = {
         query: params[:query]
       }
+      if params[:query].present? && params[:query][-1] == '구'
+        gu = Gu.find_or_create_by(name: params[:query])
+        gu.update(count: gu.count + 1)
+      end
       headers = {
         "X-Naver-Client-Id" => Rails.application.credentials.naver_id || ENV['NAVER_ID'],
         "X-Naver-Client-Secret"  => Rails.application.credentials.naver_secret || ENV['NAVER_SECRET']
@@ -29,7 +33,7 @@ module Api
         end
       end
       issues = Issue.where(id: ids - IssuesUser.black_list.where(user: current_user).pluck(:issue_id))
-
+      issues = issues.order('view_count desc') if params[:hot].to_s == 'true'
       render json: issues, adapter: :json, each_serializer: IssueSerializer, current_user: current_user.id
     end
 
@@ -48,6 +52,11 @@ module Api
       end
 
       render json: :ok, status: :ok
+    end
+
+    def user_issue_lists
+      issues = Issue.where(id: current_user.issues_users.where(kind: params[:kind]).pluck(:issue_id))
+      render json: issues, adapter: :json, each_serializer: IssueSerializer, current_user: current_user.id
     end
 
     private
